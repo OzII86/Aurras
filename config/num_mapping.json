@@ -1,0 +1,522 @@
+{
+    "numpad_layers": {
+        "num_lock_on": {
+            "num_7": {
+                "label": "Kick Drum",
+                "sample": "Vault/Audio/kick.wav"
+            },
+            "num_8": {
+                "label": "Snare Hit",
+                "sample": "Vault/Audio/snare.wav"
+            },
+            "num_9": {
+                "label": "Hi-Hat",
+                "sample": "Vault/Audio/hihat.wav"
+            },
+            "num_4": {
+                "label": "Synth Stabs",
+                "sample": "Vault/Audio/synth.wav"
+            },
+            "num_5": {
+                "label": "Vocal Chop",
+                "sample": "Vault/Audio/vocal.wav"
+            },
+            "num_6": {
+                "label": "Bass Drop",
+                "sample": "Vault/Audio/bass.wav"
+            },
+            "num_1": {
+                "label": "FX Sweep",
+                "sample": "Vault/Audio/fx.wav"
+            },
+            "num_2": {
+                "label": "Glitch Hit",
+                "sample": "Vault/Audio/glitch.wav"
+            },
+            "num_3": {
+                "label": "Custom Take",
+                "sample": "Vault/Audio/custom.wav"
+            }
+        },
+        "num_lock_off": {
+            "home": {
+                "label": "Layer 2: Filter Sweep",
+                "sample": "Vault/Audio/sweep.wav"
+            },
+            "up": {
+                "label": "Layer 2: Vocal Stutter",
+                "sample": "Vault/Audio/stutter.wav"
+            },
+            "prior": {
+                "label": "Layer 2: Ambient Pad",
+                "sample": "Vault/Audio/pad.wav"
+            },
+            "left": {
+                "label": "Layer 2: Sub Bass",
+                "sample": "Vault/Audio/sub.wav"
+            },
+            "clear": {
+                "label": "Layer 2: Noise Gate",
+                "sample": "Vault/Audio/gate.wav"
+            },
+            "right": {
+                "label": "Layer 2: Lead Synth",
+                "sample": "Vault/Audio/lead.wav"
+            },
+            "end": {
+                "label": "Layer 2: Crash Cymbal",
+                "sample": "Vault/Audio/crash.wav"
+            },
+            "down": {
+                "label": "Layer 2: Reverse Delay",
+                "sample": "Vault/Audio/delay.wav"
+            },
+            "next": {
+                "label": "Layer 2: Drop Hit",
+                "sample": "Vault/Audio/drop.wav"
+            }
+        }
+    },
+    "hotkey_board": {
+        "bpm": 132.0,
+        "bars": 2,
+        "quantize": "1/4",
+        "metronome": false,
+        "slots": {
+            "slot_0": {
+                "label": "808 Deep C1",
+                "hotkey": "q",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_deep_c1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_deep_c1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_1": {
+                "label": "808 Punch F1",
+                "hotkey": "w",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_punch_f1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_punch_f1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_2": {
+                "label": "Trap Snare",
+                "hotkey": "e",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_trap_snare.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_trap_snare.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": false
+            },
+            "slot_3": {
+                "label": "Closed Hat",
+                "hotkey": "a",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_closed_hat.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_closed_hat.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_4": {
+                "label": "Open Hat",
+                "hotkey": "s",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_open_hat.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_open_hat.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_5": {
+                "label": "808 Rim / Clap",
+                "hotkey": "d",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_rim_clap.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_rim_clap.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": false
+            },
+            "slot_6": {
+                "label": "Distorted 808 G1",
+                "hotkey": "z",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_dist_g1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_dist_g1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_7": {
+                "label": "Glide 808 Bb1",
+                "hotkey": "x",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_glide_bb1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_glide_bb1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_8": {
+                "label": "808 Sub Drop",
+                "hotkey": "c",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_sub_drop.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/808_sub_drop.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_9": {
+                "label": "Sub 808 C1",
+                "hotkey": "r",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_10_sub_808_c1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_10_sub_808_c1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_10": {
+                "label": "Sub 808 D1",
+                "hotkey": "t",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_11_sub_808_d1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_11_sub_808_d1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_11": {
+                "label": "Sub 808 Eb1",
+                "hotkey": "y",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_12_sub_808_eb1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_12_sub_808_eb1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_12": {
+                "label": "Sub 808 F1",
+                "hotkey": "f",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_13_sub_808_f1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_13_sub_808_f1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_13": {
+                "label": "Sub 808 G1",
+                "hotkey": "g",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_14_sub_808_g1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_14_sub_808_g1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_14": {
+                "label": "Sub 808 Ab1",
+                "hotkey": "h",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_15_sub_808_ab1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_15_sub_808_ab1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_15": {
+                "label": "Sub 808 Bb1",
+                "hotkey": "v",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_16_sub_808_bb1.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_16_sub_808_bb1.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_16": {
+                "label": "Sub 808 C2",
+                "hotkey": "b",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_17_sub_808_c2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_17_sub_808_c2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_17": {
+                "label": "Sub 808 D2",
+                "hotkey": "n",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_18_sub_808_d2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_18_sub_808_d2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_18": {
+                "label": "Dist 808 Eb2",
+                "hotkey": "u",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_19_dist_808_eb2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_19_dist_808_eb2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_19": {
+                "label": "Dist 808 F2",
+                "hotkey": "i",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_20_dist_808_f2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_20_dist_808_f2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_20": {
+                "label": "Dist 808 G2",
+                "hotkey": "o",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_21_dist_808_g2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_21_dist_808_g2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_21": {
+                "label": "Dist 808 Ab2",
+                "hotkey": "j",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_22_dist_808_ab2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_22_dist_808_ab2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_22": {
+                "label": "Dist 808 Bb2",
+                "hotkey": "k",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_23_dist_808_bb2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_23_dist_808_bb2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_23": {
+                "label": "Dist 808 C3",
+                "hotkey": "l",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_24_dist_808_c3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_24_dist_808_c3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_24": {
+                "label": "Dist 808 D3",
+                "hotkey": "m",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_25_dist_808_d3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_25_dist_808_d3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_25": {
+                "label": "Dist 808 Eb3",
+                "hotkey": ",",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_26_dist_808_eb3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_26_dist_808_eb3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_26": {
+                "label": "Dist 808 F3",
+                "hotkey": ".",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_27_dist_808_f3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_27_dist_808_f3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_27": {
+                "label": "Slide 808 C2",
+                "hotkey": "1",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_28_slide_808_c2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_28_slide_808_c2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_28": {
+                "label": "Slide 808 Eb2",
+                "hotkey": "2",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_29_slide_808_eb2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_29_slide_808_eb2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_29": {
+                "label": "Slide 808 F2",
+                "hotkey": "3",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_30_slide_808_f2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_30_slide_808_f2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_30": {
+                "label": "Slide 808 G2",
+                "hotkey": "4",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_31_slide_808_g2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_31_slide_808_g2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_31": {
+                "label": "Slide 808 Bb2",
+                "hotkey": "5",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_32_slide_808_bb2.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_32_slide_808_bb2.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_32": {
+                "label": "Slide 808 C3",
+                "hotkey": "6",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_33_slide_808_c3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_33_slide_808_c3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_33": {
+                "label": "Slide 808 Eb3",
+                "hotkey": "7",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_34_slide_808_eb3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_34_slide_808_eb3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_34": {
+                "label": "Slide 808 F3",
+                "hotkey": "8",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_35_slide_808_f3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_35_slide_808_f3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            },
+            "slot_35": {
+                "label": "Slide 808 G3",
+                "hotkey": "9",
+                "sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_36_slide_808_g3.wav",
+                "base_sample": "Vault/Presets/Full_36/Packs/808_Sub_Beats/pad_36_slide_808_g3.wav",
+                "pitch": 0.0,
+                "bass": 0.0,
+                "treble": 0.0,
+                "duration": 0.0,
+                "volume": 1.0,
+                "choke": true
+            }
+        },
+        "grid_mode": "Full (36)",
+        "song_script": "qez e qez e qwz as as "
+    }
+}

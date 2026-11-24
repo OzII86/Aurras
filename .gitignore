@@ -1,0 +1,19 @@
+﻿__pycache__/
+*.py[cod]
+*.class
+.venv/
+venv/
+build/
+dist/
+*.spec
+
+# Runtime temporary recordings, trims, splits, and mixes
+assets/temp/
+
+# Auto-generated Sound Pack WAVs (rebuilt automatically by core/pack_generator.py)
+Vault/Presets/3x3/Packs/
+Vault/Presets/3x6/Packs/
+Vault/Presets/3x9/Packs/
+Vault/Presets/Full_36/Packs/
+Vault/Presets/Beats/*.wav
+Vault/Audio/Loops/*.wav
