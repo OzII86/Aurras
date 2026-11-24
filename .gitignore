@@ -17,3 +17,7 @@ Vault/Presets/3x9/Packs/
 Vault/Presets/Full_36/Packs/
 Vault/Presets/Beats/*.wav
 Vault/Audio/Loops/*.wav
+
+# Local SQLite user & entitlement database
+config/*.db
+*.sqlite3

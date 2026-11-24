@@ -7,6 +7,9 @@ from typing import Dict, Any, List
 import soundfile as sf
 from core.packs.dsp_primitives import SAMPLE_RATE
 
+FREE_PACKS = {"Starter_Pack"}
+ADMIN_MASTER_KEY = "AURRAS-ADMIN-MASTER-2026"
+
 GRID_MODE_DIRS = {
     "3x3": ("3x3", 9),
     "3x6": ("3x6", 18),
@@ -90,13 +93,26 @@ def build_single_pack(pack_name: str, module: Any, grid_mode: str = "3x3") -> bo
     return True
 
 
-def build_all_expansion_packs(grid_mode: str = "3x3") -> List[str]:
-    """Discovers all pack plugins in `core/packs/` and ensures they are built for `grid_mode`."""
+def build_all_expansion_packs(
+    grid_mode: str = "3x3",
+    unlocked_packs: set[str] | None = None,
+    master_key_active: bool = False
+) -> List[str]:
+    """
+    Builds only free packs (Starter_Pack) unless `master_key_active` is True
+    or the pack name is present in `unlocked_packs`.
+    """
     packs_root_dir, _, _ = get_packs_dir_for_grid(grid_mode)
     plugins = discover_pack_plugins()
-    built_names: List[str] = []
+    allowed = set(FREE_PACKS)
+    if unlocked_packs:
+        allowed.update(unlocked_packs)
 
+    built_names: List[str] = []
     for pack_name, mod in plugins.items():
+        if not master_key_active and pack_name not in allowed:
+            continue
+
         manifest_path = os.path.join(packs_root_dir, pack_name, "pack_manifest.json")
         if not os.path.isfile(manifest_path):
             build_single_pack(pack_name, mod, grid_mode)

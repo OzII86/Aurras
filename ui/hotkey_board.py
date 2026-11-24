@@ -5,7 +5,7 @@ import customtkinter as ctk
 from typing import Callable, Optional
 from core.config_loader import ConfigLoader
 from core.beat_engine import BeatEngine
-
+from core.auth_manager import AuthManager
 
 class HotkeyBoard(ctk.CTkFrame):
     """
@@ -20,13 +20,14 @@ class HotkeyBoard(ctk.CTkFrame):
         beat_engine: Optional[BeatEngine] = None,
         on_export_to_sequencer: Optional[Callable[[str, str], None]] = None,
         config_loader: Optional[ConfigLoader] = None,
+        auth_manager: Optional[AuthManager] = None,
         **kwargs
     ):
         super().__init__(master, **kwargs)
         self.beat_engine = beat_engine if beat_engine else BeatEngine()
         self.on_export_to_sequencer = on_export_to_sequencer
         self.config_loader = config_loader if config_loader else ConfigLoader("config/num_mapping.json")
-
+        self.auth_manager = auth_manager if auth_manager else AuthManager()
         self.selected_button_index: int = 0
         self.board_config = self.config_loader.get_hotkey_board_config()
         self.slots_data = self.board_config.get("slots", {})
@@ -202,6 +203,20 @@ class HotkeyBoard(ctk.CTkFrame):
             command=self.controller_save_sound_pack
         )
         self.save_pack_btn.pack(side="left", padx=(2, 8))
+
+        self.account_btn = ctk.CTkButton(
+            bottom_row, text="👤 Sign In", width=95, height=24,
+            fg_color="#3b3b58", hover_color="#4f4f75", font=("Arial", 11, "bold"),
+            command=self.controller_open_account_dialog
+        )
+        self.account_btn.pack(side="left", padx=(2, 2))
+
+        self.redeem_key_btn = ctk.CTkButton(
+            bottom_row, text="🔑 Key", width=65, height=24,
+            fg_color="#6b4c1e", hover_color="#8f6628", font=("Arial", 11, "bold"),
+            command=self.controller_redeem_product_key
+        )
+        self.redeem_key_btn.pack(side="left", padx=(2, 8))
 
         ctk.CTkLabel(bottom_row, text="Grid:", font=("Arial", 11, "bold"), text_color="cyan").pack(side="left", padx=(6, 4))
         self.grid_mode_menu = ctk.CTkOptionMenu(
@@ -681,10 +696,14 @@ class HotkeyBoard(ctk.CTkFrame):
         """Scans Vault/Presets/<grid_dir>/Packs/ for built-in and manual packs."""
         packs_root, _, _ = self._get_active_packs_root()
 
-        # Ensure every plugin module in core/packs/ has been built for the active grid size
+        # Sync packs owned by the currently logged-in user (or Starter_Pack if signed out)
         try:
             from core.pack_generator import build_all_expansion_packs
-            build_all_expansion_packs(self.grid_mode)
+            build_all_expansion_packs(
+                self.grid_mode,
+                unlocked_packs=self.auth_manager.get_unlocked_packs(),
+                master_key_active=self.auth_manager.is_admin
+            )
         except Exception as e:
             print(f"Pack plugin sync warning: {e}")
 
@@ -713,6 +732,84 @@ class HotkeyBoard(ctk.CTkFrame):
             self.pack_menu.set(current)
         else:
             self.pack_menu.set("Select Pack...")
+
+    def controller_open_account_dialog(self):
+        """Opens a modal dialog to Sign In, Register a new account, or Sign Out."""
+        if self.auth_manager.current_user:
+            role = "ADMIN" if self.auth_manager.is_admin else "Member"
+            owned = ", ".join(sorted(self.auth_manager.get_unlocked_packs()))
+            if messagebox.askyesno(
+                "Account Session",
+                f"Signed in as: {self.auth_manager.current_user} ({role})\n"
+                f"Unlocked Packs: {'ALL (Master Key)' if self.auth_manager.is_admin else owned}\n\n"
+                f"Do you want to sign out?",
+                parent=self
+            ):
+                self.auth_manager.logout()
+                self.account_btn.configure(text="👤 Sign In", fg_color="#3b3b58")
+                self.controller_refresh_packs()
+            return
+
+        win = ctk.CTkToplevel(self)
+        win.title("Aurras Account Sign In")
+        win.geometry("340x240")
+        win.resizable(False, False)
+        win.transient(self.winfo_toplevel())
+        win.grab_set()
+
+        ctk.CTkLabel(win, text="Aurras Studio Account", font=("Arial", 15, "bold"), text_color="cyan").pack(pady=(14, 4))
+        ctk.CTkLabel(win, text="Sign in to sync your unlocked Sound Packs", font=("Arial", 11), text_color="gray").pack(pady=(0, 10))
+
+        user_entry = ctk.CTkEntry(win, placeholder_text="Username", width=260, height=30)
+        user_entry.pack(pady=4)
+        pass_entry = ctk.CTkEntry(win, placeholder_text="Password", show="*", width=260, height=30)
+        pass_entry.pack(pady=4)
+
+        def _handle_auth(is_register: bool):
+            u = user_entry.get()
+            p = pass_entry.get()
+            ok, msg = self.auth_manager.register_user(u, p) if is_register else self.auth_manager.login(u, p)
+            if ok:
+                badge = f"👑 {self.auth_manager.current_user}" if self.auth_manager.is_admin else f"👤 {self.auth_manager.current_user}"
+                self.account_btn.configure(text=badge, fg_color="#1f538d")
+                self.controller_refresh_packs()
+                messagebox.showinfo("Signed In", msg, parent=win)
+                win.destroy()
+            else:
+                messagebox.showerror("Authentication Failed", msg, parent=win)
+
+        btn_row = ctk.CTkFrame(win, fg_color="transparent")
+        btn_row.pack(pady=14)
+        ctk.CTkButton(btn_row, text="Sign In", width=120, fg_color="#1f538d", command=lambda: _handle_auth(False)).pack(side="left", padx=6)
+        ctk.CTkButton(btn_row, text="Create Account", width=120, fg_color="#006655", command=lambda: _handle_auth(True)).pack(side="left", padx=6)
+
+    def controller_redeem_product_key(self):
+        """Prompts for a Sound Pack Product Key or Admin Master Key and saves it to the active account."""
+        if not self.auth_manager.current_user:
+            messagebox.showinfo("Sign In Required", "Please sign in or create an account first so your key is saved automatically.", parent=self)
+            self.controller_open_account_dialog()
+            if not self.auth_manager.current_user:
+                return
+
+        raw_key = simpledialog.askstring(
+            "Redeem Sound Pack Key",
+            f"Account: {self.auth_manager.current_user}\nEnter your Sound Pack Product Key (or Admin Master Key):",
+            parent=self
+        )
+        if not raw_key or not raw_key.strip():
+            return
+
+        from core.pack_generator import discover_pack_plugins
+        all_plugin_names = list(discover_pack_plugins().keys())
+        ok, msg = self.auth_manager.redeem_product_key(raw_key, all_plugin_names)
+
+        if ok:
+            if self.auth_manager.is_admin:
+                self.account_btn.configure(text=f"👑 {self.auth_manager.current_user}", fg_color="#8f6628")
+            self.controller_refresh_packs()
+            messagebox.showinfo("Pack Unlocked", msg, parent=self)
+        else:
+            messagebox.showerror("Invalid Key", msg, parent=self)
 
     def controller_browse_and_load_pack_folder(self):
         """
