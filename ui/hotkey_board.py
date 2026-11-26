@@ -747,22 +747,145 @@ class HotkeyBoard(ctk.CTkFrame):
             self.pack_menu.set("Select Pack...")
 
     def controller_open_account_dialog(self):
-        """Opens a modal dialog to Sign In, Register a new account, or Sign Out."""
+        """
+        Opens the Account modal:
+        - When signed out: Sign In / Create Account form.
+        - When signed in: Session summary, Sign Out button, and (if Admin) the Admin Key Generator.
+        """
         if self.auth_manager.current_user:
-            role = "ADMIN" if self.auth_manager.is_admin else "Member"
-            owned = ", ".join(sorted(self.auth_manager.get_unlocked_packs()))
-            if messagebox.askyesno(
-                "Account Session",
-                f"Signed in as: {self.auth_manager.current_user} ({role})\n"
-                f"Unlocked Packs: {'ALL (Master Key)' if self.auth_manager.is_admin else owned}\n\n"
-                f"Do you want to sign out?",
-                parent=self
-            ):
+            tier_status = self.auth_manager.get_tier_status()
+            is_admin = self.auth_manager.is_admin
+
+            win = ctk.CTkToplevel(self)
+            win.title("Aurras Account & Admin Console" if is_admin else "Aurras Account Session")
+            win.geometry("430x460" if is_admin else "360x240")
+            win.resizable(False, False)
+            win.transient(self.winfo_toplevel())
+            win.grab_set()
+
+            header_color = "#ffcc00" if is_admin else "cyan"
+            ctk.CTkLabel(
+                win,
+                text=f"{'👑' if is_admin else '👤'} {self.auth_manager.current_user}",
+                font=("Arial", 16, "bold"),
+                text_color=header_color
+            ).pack(pady=(14, 2))
+
+            ctk.CTkLabel(
+                win,
+                text=f"Active Tier: {tier_status['display_name']}",
+                font=("Arial", 11, "bold"),
+                text_color="#00ffcc"
+            ).pack(pady=(0, 8))
+
+            if is_admin:
+                # --- ADMIN KEY GENERATOR PANEL ---
+                admin_box = ctk.CTkFrame(win, fg_color="#1c1c28", corner_radius=8, border_width=1, border_color="#8f6628")
+                admin_box.pack(fill="x", padx=16, pady=(4, 10))
+
+                ctk.CTkLabel(
+                    admin_box,
+                    text="🔑 Admin Product Key Generator",
+                    font=("Arial", 13, "bold"),
+                    text_color="#ffcc00"
+                ).pack(pady=(8, 4))
+
+                from core.pack_generator import discover_pack_plugins
+                pack_names = [p for p in discover_pack_plugins().keys() if p != "Starter_Pack"] or ["808_Sub_Beats"]
+
+                # Row 1: Key Type Selector
+                type_row = ctk.CTkFrame(admin_box, fg_color="transparent")
+                type_row.pack(fill="x", padx=12, pady=4)
+                ctk.CTkLabel(type_row, text="License Type:", width=95, anchor="w", font=("Arial", 11)).pack(side="left")
+                key_type_menu = ctk.CTkOptionMenu(
+                    type_row,
+                    values=["Individual Pack", "30-Day Subscription", "Lifetime Pro"],
+                    width=210,
+                    height=26
+                )
+                key_type_menu.set("Individual Pack")
+                key_type_menu.pack(side="right")
+
+                # Row 2: Pack Selector (used for Individual Pack)
+                pack_row = ctk.CTkFrame(admin_box, fg_color="transparent")
+                pack_row.pack(fill="x", padx=12, pady=4)
+                ctk.CTkLabel(pack_row, text="Target Pack:", width=95, anchor="w", font=("Arial", 11)).pack(side="left")
+                target_pack_menu = ctk.CTkOptionMenu(pack_row, values=pack_names, width=210, height=26)
+                target_pack_menu.set(pack_names[0])
+                target_pack_menu.pack(side="right")
+
+                # Row 3: Customer Username & Sub Nonce (used for Sub / Lifetime)
+                user_row = ctk.CTkFrame(admin_box, fg_color="transparent")
+                user_row.pack(fill="x", padx=12, pady=4)
+                ctk.CTkLabel(user_row, text="Customer User:", width=95, anchor="w", font=("Arial", 11)).pack(side="left")
+                cust_user_entry = ctk.CTkEntry(user_row, placeholder_text="e.g., Rocky", width=135, height=26)
+                cust_user_entry.insert(0, self.auth_manager.current_user)
+                cust_user_entry.pack(side="left", padx=(4, 4))
+
+                nonce_entry = ctk.CTkEntry(user_row, placeholder_text="M01", width=65, height=26)
+                nonce_entry.insert(0, "M01")
+                nonce_entry.pack(side="right")
+
+                # Output Key Display Box
+                generated_key_entry = ctk.CTkEntry(
+                    admin_box,
+                    font=("Consolas", 12, "bold"),
+                    justify="center",
+                    height=30,
+                    text_color="#00ffcc"
+                )
+                generated_key_entry.pack(fill="x", padx=12, pady=(8, 6))
+
+                def _generate_and_copy():
+                    k_type = key_type_menu.get()
+                    if k_type == "Individual Pack":
+                        code = self.auth_manager.generate_pack_key(target_pack_menu.get())
+                    elif k_type == "30-Day Subscription":
+                        u_name = cust_user_entry.get().strip() or self.auth_manager.current_user or "USER"
+                        n_code = nonce_entry.get().strip() or "M01"
+                        code = self.auth_manager.generate_subscription_key(u_name, n_code)
+                    else:
+                        u_name = cust_user_entry.get().strip() or self.auth_manager.current_user or "USER"
+                        code = self.auth_manager.generate_lifetime_key(u_name)
+
+                    generated_key_entry.delete(0, "end")
+                    generated_key_entry.insert(0, code)
+                    self.clipboard_clear()
+                    self.clipboard_append(code)
+
+                ctk.CTkButton(
+                    admin_box,
+                    text="⚡ Generate & Copy Product Key",
+                    fg_color="#8f6628",
+                    hover_color="#b38032",
+                    font=("Arial", 11, "bold"),
+                    height=28,
+                    command=_generate_and_copy
+                ).pack(fill="x", padx=12, pady=(2, 10))
+                _generate_and_copy()
+            else:
+                owned_list = ", ".join(sorted(self.auth_manager.get_unlocked_packs()))
+                ctk.CTkLabel(
+                    win,
+                    text=f"Unlocked Packs:\n{owned_list}",
+                    font=("Arial", 11),
+                    text_color="lightgray",
+                    wraplength=310
+                ).pack(pady=(6, 12))
+
+            def _do_logout():
                 self.auth_manager.logout()
                 self.account_btn.configure(text="👤 Sign In", fg_color="#3b3b58")
                 self.controller_refresh_packs()
+                win.destroy()
+
+            btn_footer = ctk.CTkFrame(win, fg_color="transparent")
+            btn_footer.pack(side="bottom", fill="x", padx=16, pady=12)
+            ctk.CTkButton(btn_footer, text="Sign Out", width=110, fg_color="#661111", hover_color="#991111", command=_do_logout).pack(side="left")
+            ctk.CTkButton(btn_footer, text="Close", width=110, fg_color="#333333", hover_color="#444444", command=win.destroy).pack(side="right")
             return
 
+        # --- SIGNED-OUT LOGIN / REGISTER DIALOG ---
         win = ctk.CTkToplevel(self)
         win.title("Aurras Account Sign In")
         win.geometry("340x240")
@@ -784,7 +907,7 @@ class HotkeyBoard(ctk.CTkFrame):
             ok, msg = self.auth_manager.register_user(u, p) if is_register else self.auth_manager.login(u, p)
             if ok:
                 badge = f"👑 {self.auth_manager.current_user}" if self.auth_manager.is_admin else f"👤 {self.auth_manager.current_user}"
-                self.account_btn.configure(text=badge, fg_color="#1f538d")
+                self.account_btn.configure(text=badge, fg_color="#8f6628" if self.auth_manager.is_admin else "#1f538d")
                 self.controller_refresh_packs()
                 messagebox.showinfo("Signed In", msg, parent=win)
                 win.destroy()
