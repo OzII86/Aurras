@@ -284,6 +284,18 @@ class HotkeyBoard(ctk.CTkFrame):
 
     def controller_change_grid_mode(self, new_mode: str):
         """Rebuilds the pad matrix for 3x3, 3x6, 3x9, or Full (36) and updates the Inspector dropdown."""
+        tier_status = self.auth_manager.get_tier_status()
+        if new_mode not in tier_status["allowed_grids"]:
+            messagebox.showinfo(
+                "Upgrade Required",
+                f"Grid size '{new_mode}' requires a 30-Day Demo (3x6/3x9), Individual Pack, "
+                f"Monthly Subscription, or Lifetime Pro license.\n\n"
+                f"Current Tier: {tier_status['display_name']}",
+                parent=self
+            )
+            self.grid_mode_menu.set(self.grid_mode)
+            return
+        
         self.grid_mode = new_mode
         self.config_loader.data["hotkey_board"]["grid_mode"] = new_mode
         self.config_loader.save_config()
@@ -699,10 +711,11 @@ class HotkeyBoard(ctk.CTkFrame):
         # Sync packs owned by the currently logged-in user (or Starter_Pack if signed out)
         try:
             from core.pack_generator import build_all_expansion_packs
+            tier_status = self.auth_manager.get_tier_status()
             build_all_expansion_packs(
                 self.grid_mode,
                 unlocked_packs=self.auth_manager.get_unlocked_packs(),
-                master_key_active=self.auth_manager.is_admin
+                master_key_active=tier_status["full_catalog"]
             )
         except Exception as e:
             print(f"Pack plugin sync warning: {e}")
