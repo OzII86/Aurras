@@ -19,6 +19,13 @@ class ConfigLoader:
             self.data["numpad_layers"] = {"num_lock_on": {}, "num_lock_off": {}}
             changed = True
 
+        if "licensing" not in self.data:
+            self.data["licensing"] = {
+                "master_key_unlocked": False,
+                "unlocked_packs": ["Starter_Pack"]
+            }
+            changed = True
+
         full_keys = [
             "q", "w", "e", "a", "s", "d", "z", "x", "c",
             "r", "t", "y", "f", "g", "h", "v", "b", "n",
