@@ -21,7 +21,10 @@
 * **Scalable Pad Grid & Text-to-Song Sequencer (`ui/hotkey_board.py`)**: Expanded the soundboard matrix to support `3x3` (9 pads), `3x6` (18 pads), `3x9` (27 pads), and `Full (36)` (36 pads) keyboard bindings, paired with a Text-to-Song Sequencer that compiles typed chord clusters and timing gaps directly into the loop buffer.
 * **Auto-Named Preset Baker (`Vault/Presets/Beats/`)**: Added per-pad Pitch (`st`), Bass (`dB`), and Treble (`dB`) DSP rendering that automatically generates derived `.wav` files named by their parameter offsets.
 * **Drop-In Sound Pack Plugin System (`core/pack_generator.py` & `core/packs/`)**: Built a dynamic plugin orchestrator and 12 synthesized instrument/genre packs (including physical-modeled Cello, Brass/Trumpet, Grand Piano, Acoustic Drums, Cyber Industrial, Gothic Cathedral, LoFi Midnight, Dark Phonk, Metal Foundry, Retro Synthwave, and Chiptune Arcade) scoped by grid size (`Vault/Presets/<grid_type>/Packs/`), plus manual folder auto-indexing, Load Pack, and Save Pack tools.
+* **Tiered User Accounts, Paywall Gating & Admin Keygen (`core/auth_manager.py`)**: Implemented a standalone local SQLite authentication and entitlement engine (`config/aurras_vault.db`) supporting Free Starter accounts, automatic 30-Day Pro Demos on registration, Individual Pack keys, stackable 30-Day Monthly Subscriptions, Lifetime Pro licenses, and Admin Master elevation—while keeping all 4 grid dimensions (`3x3` to `Full 36`) unlocked across every tier and embedding an interactive **Admin Product Key Generator** inside the Account dialog.
 * **Dual-Layer Numpad Mapper (`ui/hotkey_toggle.py`, `core/input_mapper.py`)**: Implemented Win32 Num Lock-aware dual-layer keybind management via `config/num_mapping.json`.
+
+
 
 ## Phase 5: Studio Integration & Performance Polish (Next Stage)
 * **Console Preset Loading & Two-Way Track Sync**: Complete JSON hydration in `SoundBoardPanel._load_preset_callback`, wire the channel strip `HPF` button, and sync Mute/Solo/Name changes bi-directionally between `TrackSidebar` and `ChannelStrip`.

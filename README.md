@@ -61,7 +61,8 @@ Aurras/
 │   └── temp/                       # Runtime mic recordings (mic/), split stems, region trims (trimmed/), and master mixes (mix/)
 │
 ├── config/                         # User Mappings & Persistent State
-│   └── num_mapping.json            # 36-pad soundboard state, looper transport settings, song scripts, and numpad layers
+│   ├── num_mapping.json            # 36-pad soundboard state, looper transport settings, song scripts, and numpad layers
+│   └── aurras_vault.db             # Local SQLite database storing salted user accounts, tier expirations & redeemed pack keys (git-ignored)
 │
 ├── Milestones.md                   # Project Milestones and Completion Status
 ├── ProjectPlan.md                  # High-Level Development Roadmap
@@ -85,7 +86,10 @@ Aurras/
 
 * **Text-to-Song Sequencer**: Built-in text tracker allowing users to compose and layer beats by typing strings of characters—grouped characters fire simultaneously as chords/stacks (e.g., qdx), while spaces ( ) and dashes (-) advance the quantized timing grid. Includes live pad-to-text keystroke capture.
 
-* **Modular Sound Pack Plugin Architecture (core/pack_generator.py & core/packs/)**: Dynamically discovers and synthesizes 12 genre and pure-instrument packs across all grid sizes (Vault/Presets/<grid_type>/Packs/), auto-indexes manually dropped audio folders, and bakes custom Pitch/Bass/Treble pad tweaks into auto-named .wav files in Vault/Presets/Beats/.
+* **Modular Sound Pack Plugin Architecture (`core/pack_generator.py & core/packs/`)**: Dynamically discovers and synthesizes 12 genre and pure-instrument packs across all grid sizes (Vault/Presets/<grid_type>/Packs/), auto-indexes manually dropped audio folders, and bakes custom Pitch/Bass/Treble pad tweaks into auto-named .wav files in Vault/Presets/Beats/.
+
+* **Offline Account, Tiered Entitlements & Admin Keygen (`core/auth_manager.py`)**: Self-hosted SQLite authentication engine (`config/aurras_vault.db`) using PBKDF2-HMAC-SHA256 salted password hashing and deterministic HMAC-SHA256 product keys. Supports progressive commercial tiers (**Free Starter**, **30-Day Auto-Demo**, **Individual Pack Keys**, **Stackable 30-Day Monthly Subscriptions**, **Lifetime Pro**, and **Admin Master**) with full `3x3`–`Full (36)` grid access across all tiers and an interactive **Admin Product Key Generator** inside the Account Console.
+
 
 * **Broadcast Mixing Console (SoundBoardPanel, HardwareIOBlock, ChannelStrip)**: Hardware-inspired vertical channel strip console providing real-time Mic/Speaker master volume control, anti-pop relay warmup fades (VolumeFader), Preamp Gain, stateful 4-Band Butterworth EQ (FourBandEQ), circular-buffer Echo FX, stereo Pan, and 50ms-polled 7-segment LED peak meters.
 
